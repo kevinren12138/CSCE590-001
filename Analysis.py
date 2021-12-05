@@ -196,28 +196,8 @@ plt.yticks(range(num_features), [feature_names[i] for i in indices[-num_features
 plt.xticks(rotation=90)
 plt.xlabel('Importance')
 plt.show()
-'''
-Tfidf_vect = TfidfVectorizer(max_features=1000)
-Tfidf_vect.fit(df['clean_tweet'])
-x = Tfidf_vect.transform(x)
-# place tf-idf values in a pandas data frame
-# get the first vector out (for the first document)
-from sklearn.feature_extraction.text import TfidfVectorizer
 
-# settings that you use for count vectorizer will go here
-tfidf_vectorizer = TfidfVectorizer(use_idf=True)
-
-# just send in all your docs here
-tfidf_vectorizer_vectors = tfidf_vectorizer.fit_transform(x)
-first_vector_tfidfvectorizer = tfidf_vectorizer_vectors[0]
-
-# place tf-idf values in a pandas data frame
-df = pd.DataFrame(first_vector_tfidfvectorizer.T.todense(), index=tfidf_vectorizer.get_feature_names(),
-                  columns=["tfidf"])
-df.sort_values(by=["tfidf"], ascending=False)
-'''
 from xgboost import XGBClassifier
-from xgboost import plot_importance
 
 model = XGBClassifier()
 model.fit(x_train,y_train)
@@ -234,8 +214,5 @@ plt.title('Confusion Matrix')
 plt.ylabel('Actal Values')
 plt.xlabel('Predicted Values')
 plt.show()
-# plot feature importance 
-plot_importance(model, max_num_features=20)
-from matplotlib import pyplot
-pyplot.show()
+
 
